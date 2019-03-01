@@ -1,12 +1,8 @@
-from tkinter import *
+import tkinter as tk
+root = tk.Tk()
 
-COLOR1 = "black"
-COLOR2 = "blue"
-
-root = Tk()
-root.config(bg=COLOR1)
-
-button = Button(text="button", bg=COLOR2)
-button.pack(padx=5, pady=5)
+tk.Label(root,
+		 text="Green Text in Helvetica Font",
+		 font = "Helvetica 16 bold italic").pack()
 
 root.mainloop()
