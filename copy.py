@@ -1,31 +1,22 @@
 from tkinter import *
 
+
 root = Tk()
-root.geometry("250x150+300+300")
+root.title("Fantasy Cricket")
+root.geometry("680x420")
+root.resizable(width=FALSE,height=FALSE)
 
+labelframe = LabelFrame(root, text="Your Selection")
+labelframe.place(x=20,y=20)
 
-class Example(Frame):
-
-    def __init__(self):
-        super().__init__()
-
-        self.initUI()
-
-    def initUI(self):
-        self.master.title("Simple menu")
-
-        menubar = Menu(self.master)
-        self.master.config(menu=menubar)
-
-        fileMenu = Menu(menubar, relief=RAISED)
-        fileMenu.add_command(label="Exit", command=self.onExit)
-        menubar.add_cascade(label="File", menu=fileMenu)
-
-    def onExit(self):
-        self.quit()
-
-
-app = Example()
+left = Label(labelframe, text="")
+left.pack()
+left = Label(labelframe, text="     Batsman(BAT)           "
+                              "     Bowers(BOW)             "
+                              "     Allroundders(AR)           "
+                              "     Wicket-Keeper(WK)               ")
+left.pack()
+left = Label(labelframe, text="")
+left.pack()
 
 root.mainloop()
-

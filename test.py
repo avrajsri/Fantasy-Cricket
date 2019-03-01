@@ -3,7 +3,7 @@ from tkinter import *
 
 root=Tk()
 root.title("Fantasy Cricket")
-root.geometry("600x370")
+root.geometry("680x420")
 root.resizable(width=FALSE,height=FALSE)
 # -----------Show Root win in center--------------
 def center(win):
@@ -14,15 +14,24 @@ def center(win):
     y = (win.winfo_screenheight() // 2) - (height // 2)
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
+
+# 3
+def home(xxx):
+    print(xxx)
+
 #2
 def NEW():
-    print("NEW Team")
+    xxx=1
+    home(xxx)
 def OPEN():
-    print("OPEN Team")
+    xxx=2
+    home(xxx)
 def SAVE():
-    print("SAVE Team")
+    xxx=3
+    home(xxx)
 def EVALUATE():
-    print("EVALUATE Team")
+    xxx=4
+    home(xxx)
 
 #0
 center(root)
@@ -32,12 +41,29 @@ mb.grid()
 mb.menu =  Menu ( mb, tearoff = 0 )
 mb["menu"] =  mb.menu
 
-selected = IntVar()
+mb.config(background="#CCCCCC")
+mb.menu.config(background="#CCCCCC")
+
 mb.menu.add_command(label="NEW Team", command=NEW)
 mb.menu.add_command(label="OPEN Team", command=OPEN)
-mb.menu.add_cascade(label="SAVE Team", command=SAVE)
-mb.menu.add_cascade(label="EVALUATE Team", command=EVALUATE)
+mb.menu.add_command(label="SAVE Team", command=SAVE)
+mb.menu.add_command(label="EVALUATE Team", command=EVALUATE)
 mb.place(x=0,y=0)
+
+labelframe = LabelFrame(root, text="Your Selection")
+labelframe.place(x=45,y=45)
+
+left = Label(labelframe, text="")
+left.pack()
+left = Label(labelframe, text="     Batsman(BAT)           "
+                              "     Bowers(BOW)                 "
+                              "     Allroundders(AR)             "
+                              "     Wicket-Keeper(WK)                 ")
+left.pack()
+left = Label(labelframe, text="")
+left.pack()
+
+
 
 
 root.mainloop()
