@@ -55,7 +55,7 @@ labelframe.place(x=45,y=45)
 
 left = Label(labelframe, text="")
 left.pack()
-left = Label(labelframe, text="     Batsman(BAT)           "
+left = Label(labelframe, text="     Batsman(BAT)               "
                               "     Bowers(BOW)                 "
                               "     Allroundders(AR)             "
                               "     Wicket-Keeper(WK)                 ")
@@ -63,6 +63,26 @@ left.pack()
 left = Label(labelframe, text="")
 left.pack()
 
+sbox1 = Text(labelframe, height=1, width=2, bg="white")
+sbox1.place(x=97, y=23)
+sbox1.tag_configure('color', foreground='#399B9B', font=('Calibri', 12, 'bold'))
+sbox1.insert(END, "##", 'color')
+sbox1.configure(state='disabled')
+sbox2 = Text(labelframe, height=1, width=2, bg="white")
+sbox2.place(x=230, y=23)
+sbox2.tag_configure('color', foreground='#399B9B', font=('Calibri', 12, 'bold'))
+sbox2.insert(END, "##", 'color')
+sbox2.configure(state='disabled')
+sbox3 = Text(labelframe, height=1, width=2, bg="white")
+sbox3.place(x=386, y=23)
+sbox3.tag_configure('color', foreground='#399B9B', font=('Calibri', 12, 'bold'))
+sbox3.insert(END, "##", 'color')
+sbox3.configure(state='disabled')
+sbox4 = Text(labelframe, height=1, width=2, bg="white")
+sbox4.place(x=544, y=23)
+sbox4.tag_configure('color', foreground='#399B9B', font=('Calibri', 12, 'bold'))
+sbox4.insert(END, "##", 'color')
+sbox4.configure(state='disabled')
 
 
 
