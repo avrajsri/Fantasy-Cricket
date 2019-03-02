@@ -4,7 +4,7 @@ root=Tk()
 root.title("Fantasy Cricket")
 root.geometry("680x420")
 root.resizable(width=FALSE,height=FALSE)
-root.configure(background='#FFFFFF')
+#root.configure(background='#FFFFFF')
 # -----------Show Root win in center--------------
 def center(win):
     win.update_idletasks()
@@ -90,14 +90,22 @@ e3.configure(state='disabled')
 e4.configure(state='disabled')
 
 z.initialize("####")
-Label(root,text="Point Available",bg="#FFFFFF",font=('Comic Sans MS',9,"bold")).place(x=100,y=120)
-Label(root,text="Point Used",bg="#FFFFFF",font=('Comic Sans MS',9,"bold")).place(x=420,y=120)
+Label(root,text="Point Available",font=('Comic Sans MS',9,"bold")).place(x=120,y=120)
+Label(root,text="Point Used",font=('Comic Sans MS',9,"bold")).place(x=430,y=120)
+
 e5=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=z)
-e5.place(x=192, y=123,width=30)
-e6=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=z)
-e6.place(x=490, y=123,width=30)
+e5.place(x=212, y=123,width=30)
 e5.configure(state='disabled')
+e6=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=z)
+e6.place(x=500, y=123,width=30)
 e6.configure(state='disabled')
+
+b1 = Text(root, height=15, width=27, bg="white", relief="solid")
+b1.place(x=80, y=150)
+b1.configure(state='disabled')
+b2 = Text(root, height=15, width=27, bg="white", relief="solid")
+b2.place(x=380, y=150)
+b2.configure(state='disabled')
 
 
 root.mainloop()
