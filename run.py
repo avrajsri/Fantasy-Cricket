@@ -1,8 +1,14 @@
-import tkinter as tk
-root = tk.Tk()
+from tkinter import *
+root = Tk()
+root.geometry("680x420")
 
-tk.Label(root,
-		 text="Green Text in Helvetica Font",
-		 font = "Helvetica 16 bold italic").pack()
+title = ['    Programmer', '    Developer', '   Web Developer', '    Designer']
+
+titleList = Listbox(root, height=5, fg="#399B9B", font=('Comic Sans MS',9))
+for t in title:
+	titleList.insert(END, t)
+titleList.place(x=60, y=60)
+
 
 root.mainloop()
+
