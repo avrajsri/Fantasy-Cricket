@@ -1,10 +1,13 @@
 from tkinter import *
+import sqlite3
+from tkinter import messagebox
 
 root=Tk()
 root.title("Fantasy Cricket")
 root.geometry("680x420")
 root.resizable(width=FALSE,height=FALSE)
-#root.configure(background='#FFFFFF')
+root.configure(background='#FFFFFF')
+
 # -----------Show Root win in center--------------
 def center(win):
     win.update_idletasks()
@@ -13,7 +16,6 @@ def center(win):
     x = (win.winfo_screenwidth() // 2) - (width // 2)
     y = (win.winfo_screenheight() // 2) - (height // 2)
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
-
 
 # 3
 def home(xxx):
@@ -91,14 +93,14 @@ e4.configure(state='disabled')
 
 zz=StringVar()
 zz.initialize("####")
-Label(root,text="Point Available",font=('Comic Sans MS',9,"bold")).place(x=120,y=120)
-Label(root,text="Point Used",font=('Comic Sans MS',9,"bold")).place(x=430,y=120)
+Label(root,text="Point Available",bg="white",font=('Comic Sans MS',9,"bold")).place(x=120,y=120)
+Label(root,text="Point Used",bg="white",font=('Comic Sans MS',9,"bold")).place(x=430,y=120)
 
-e5=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=zz)
-e5.place(x=212, y=123,width=30)
+e5=Entry(root,font=('arial',10,"italic","bold"), relief="solid",fg='#399B9B',textvariable=zz)
+e5.place(x=212, y=123,width=33)
 e5.configure(state='disabled')
-e6=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=zz)
-e6.place(x=500, y=123,width=30)
+e6=Entry(root,font=('arial',10,"italic","bold"), relief="solid",fg='#399B9B',textvariable=zz)
+e6.place(x=500, y=123,width=33)
 e6.configure(state='disabled')
 
 b1 = Text(root, height=15, width=28, bg="white", relief="solid")
@@ -125,13 +127,30 @@ selected.set(1)
 #rb = selected.get()
 #print(rb)
 
-Label(root,text=">", font=('Comic Sans MS',20)).place(x=335,y=245)
+Label(root,text=">",bg="white", font=('Comic Sans MS',20)).place(x=335,y=245)
 
 zzz=StringVar()
 zzz.initialize("Displayed Here")
 Label(root,text="Team Name: ", bg="white", font=('Comic Sans MS',10)).place(x=405,y=155)
+
 e7=Entry(root, font=('arial',10,"italic","bold"), relief="solid", fg='#399B9B', textvariable=zzz)
 e7.place(x=485, y=157,width=100)
 e7.configure(state='disabled')
+
+title1 = ['Programmer','Virat kohli', 'Developer','Yuvraj Singh', 'Designer']
+titleList1 = Listbox(root, font=('Comic Sans MS',12), listvariable=title1, highlightcolor="white", bd=0, width=22, height=6, fg="#497CFF", selectbackground="#CCFFFF",selectforeground="#497CFF")
+titleList1.focus_set()
+for t in title1:
+    titleList1.insert(END, t)
+titleList1.place(x=83, y=200)
+
+title2 = ['Programmer','Virat kohli', 'Developer','Yuvraj Singh', 'Designer']
+titleList2 = Listbox(root, font=('Comic Sans MS',12), listvariable=title2, highlightcolor="white", bd=0, width=22, height=6, fg="#497CFF", selectbackground="#CCFFFF",selectforeground="#497CFF")
+titleList2.focus_set()
+for t in title2:
+    titleList2.insert(END, t)
+titleList2.place(x=385, y=200)
+
+
 
 root.mainloop()

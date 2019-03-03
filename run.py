@@ -38,4 +38,21 @@ e7.place(x=485, y=157,width=100)
 e7.configure(state='disabled')
 
 
+
+title1 = ['Programmer','Virat kohli', 'Developer','Yuvraj Singh', 'Designer']
+titleList1 = Listbox(root, font=('Comic Sans MS',12), listvariable=title1, highlightcolor="white", bd=0, width=22, height=6, fg="#497CFF", selectbackground="#CCFFFF",selectforeground="#497CFF")
+titleList1.focus_set()
+for t in title1:
+	titleList1.insert(END, t)
+titleList1.place(x=83, y=200)
+
+title2 = ['Programmer','Virat kohli', 'Developer','Yuvraj Singh', 'Designer']
+titleList2 = Listbox(root, font=('Comic Sans MS',12), listvariable=title2, highlightcolor="white", bd=0, width=22, height=6, fg="#497CFF", selectbackground="#CCFFFF",selectforeground="#497CFF")
+titleList2.focus_set()
+for t in title2:
+	titleList2.insert(END, t)
+titleList2.place(x=385, y=200)
+
+
+
 root.mainloop()
