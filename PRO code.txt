@@ -89,15 +89,14 @@ e2.configure(state='disabled')
 e3.configure(state='disabled')
 e4.configure(state='disabled')
 
-zz=StringVar()
-zz.initialize("####")
+z.initialize("####")
 Label(root,text="Point Available",font=('Comic Sans MS',9,"bold")).place(x=120,y=120)
 Label(root,text="Point Used",font=('Comic Sans MS',9,"bold")).place(x=430,y=120)
 
-e5=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=zz)
+e5=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=z)
 e5.place(x=212, y=123,width=30)
 e5.configure(state='disabled')
-e6=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=zz)
+e6=Entry(root,font=('arial',10,"italic","bold"),bd=0,fg='#399B9B',textvariable=z)
 e6.place(x=500, y=123,width=30)
 e6.configure(state='disabled')
 
@@ -126,12 +125,5 @@ selected.set(1)
 #print(rb)
 
 Label(root,text=">", font=('Comic Sans MS',20)).place(x=335,y=245)
-
-zzz=StringVar()
-zzz.initialize("Displayed Here")
-Label(root,text="Team Name: ", bg="white", font=('Comic Sans MS',10)).place(x=405,y=155)
-e7=Entry(root, font=('arial',10,"italic","bold"), relief="solid", fg='#399B9B', textvariable=zzz)
-e7.place(x=485, y=157,width=100)
-e7.configure(state='disabled')
 
 root.mainloop()
