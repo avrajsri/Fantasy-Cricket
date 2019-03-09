@@ -19,19 +19,44 @@ def center(win):
 
 #4
 def go(event):
-    pass
+    j=lt1.curselection()
+    j=j[0]
+    print(j)
+    print(sn)
 
 #3
 def selection():
-    c.execute("SELECT player, ctg FROM data")
-    data = c.fetchall()
-    for i in data:
-        c.execute("INSERT INTO "+tn+"(player, Tin, Tout, ctg) VALUES (?, ?, ?, ?)", (i[0], int(0), int(1), i[1]))
-        conn.commit()
+    global sn
+    sn = selected.get()
+    lt1.delete(0,END)
 
-    s = selected.get()
-    print(s)
+    if(sn==1):
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BAT", int(0)])
+        data = c.fetchall()
 
+        for i in data:
+            lt1.insert(END, i)
+
+    elif(sn==2):
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BOW", int(0)])
+        data = c.fetchall()
+
+        for i in data:
+            lt1.insert(END, i)
+
+    elif(sn==3):
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["AR", int(0)])
+        data = c.fetchall()
+
+        for i in data:
+            lt1.insert(END, i)
+
+    else:
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["WK", int(0)])
+        data = c.fetchall()
+
+        for i in data:
+            lt1.insert(END, i)
 
 #2
 def NEW():
@@ -51,11 +76,18 @@ def NEW():
                 conn = sqlite3.connect('Cricket.db')
                 c = conn.cursor()
 
-                c.execute("CREATE TABLE "+tn+"(player TEXT, Tin INTEGER, Tout INTEGER, ctg TEXT)")
+                c.execute("CREATE TABLE "+tn+"(player TEXT, Tin INTEGER, ctg TEXT)")
                 conn.commit()
 
                 c.execute("INSERT INTO TeamData(NewTeam, Point) VALUES (?, ?)",(tn,int(0)))
                 conn.commit()
+
+                c.execute("SELECT player, ctg FROM data")
+                data = c.fetchall()
+                for i in data:
+                    c.execute("INSERT INTO " + tn + "(player, Tin, ctg) VALUES (?, ?, ?)",
+                              (i[0], int(0), i[1]))
+                    conn.commit()
 
                 e1.configure(text=0)
                 e2.configure(text=0)
@@ -185,6 +217,15 @@ rad1.configure(state='disabled')
 rad2.configure(state='disabled')
 rad3.configure(state='disabled')
 rad4.configure(state='disabled')
+
+lt1 = Listbox(root, font=('Comic Sans MS', 12), highlightcolor="white", bd=0, width=22, height=6,
+                     fg="#497CFF", selectbackground="#CCFFFF", selectforeground="#497CFF")
+lt1.bind("<Double-1>", go)
+lt1.place(x=83, y=199)
+
+lt2 = Listbox(root, font=('Comic Sans MS',12), highlightcolor="white", bd=0, width=22, height=8,
+              fg="#497CFF", selectbackground="#CCFFFF",selectforeground="#497CFF")
+lt2.place(x=385, y=199)
 
 #0
 center(root)
