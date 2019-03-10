@@ -17,155 +17,153 @@ def center(win):
     y = (win.winfo_screenheight() // 2) - (height // 2)
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
-#5
+#4
 def go(event):
     j=lt1.curselection()
     jj=j[0]
-
-    lt1.delete(j)
+    a=[]
 
     if(sn==1):
-        u = batP[jj]
-        print(u)
-        batP.remove(u)
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BAT", int(0)])
+        data = c.fetchall()
+        for i in data:
+            a.append(i)
+
 
     elif(sn==2):
-        u = bowP[jj]
-        print(u)
-        bowP.remove(u)
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BOW", int(0)])
+        data = c.fetchall()
+        for i in data:
+            a.append(i)
 
     elif(sn==3):
-        u = arP[jj]
-        print(u)
-        arP.remove(u)
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["AR", int(0)])
+        data = c.fetchall()
+        for i in data:
+            a.append(i)
 
     else:
-        u = wkP[jj]
-        print(u)
-        wkP.remove(u)
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["WK", int(0)])
+        data = c.fetchall()
+        for i in data:
+            a.append(i)
 
-#4
+    aa = a[jj]
+    aaa = aa[0]
+    lt1.delete(j)
+
+    c.execute("UPDATE " + tn + " SET Tin = ? WHERE player = ?", (int(1), aaa))
+    conn.commit()
+
+    lt2.delete(0, END)
+    c.execute("SELECT player FROM " + tn + " WHERE Tin = ?", [int(1)])
+    data = c.fetchall()
+
+    for i in data:
+        i=i[0]
+        lt2.insert(END, i)
+
+#3
 def selection():
     global sn
     sn = selected.get()
-    lt1.delete(0, END)
+    lt1.delete(0,END)
 
     if(sn==1):
-        for i in batP:
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BAT", int(0)])
+        data = c.fetchall()
+
+        for i in data:
+            i=i[0]
             lt1.insert(END, i)
 
     elif(sn==2):
-        for i in bowP:
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BOW", int(0)])
+        data = c.fetchall()
+
+        for i in data:
+            i=i[0]
             lt1.insert(END, i)
 
     elif(sn==3):
-        for i in arP:
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["AR", int(0)])
+        data = c.fetchall()
+
+        for i in data:
+            i=i[0]
             lt1.insert(END, i)
 
     else:
-        for i in wkP:
+        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["WK", int(0)])
+        data = c.fetchall()
+
+        for i in data:
+            i=i[0]
             lt1.insert(END, i)
-
-
-#3
-def GV():
-    global conn
-    global c
-    conn = sqlite3.connect('Cricket.db')
-    c = conn.cursor()
-
-    global TotalP
-    global batP
-    global bowP
-    global arP
-    global wkP
-    TotalP=[]
-    batP=[]
-    bowP=[]
-    arP=[]
-    wkP=[]
-
-    c.execute("SELECT * FROM DATA")
-    data = c.fetchall()
-    for i in data:
-        TotalP.append(i)
-
-    lt1.delete(0, END)
-
-    for i in TotalP:
-        if i[1]=="BAT":
-            batP.append(i[0])
-
-
-    for i in TotalP:
-        if i[1]=="BOW":
-            bowP.append(i[0])
-
-
-    for i in TotalP:
-        if i[1]=="AR":
-            arP.append(i[0])
-
-
-    for i in TotalP:
-        if i[1]=="WK":
-            wkP.append(i[0])
 
 #2
 def NEW():
     lt1.delete(0, END)
     lt2.delete(0, END)
-
     def tname():
         global tn
-        tn=en.get().upper()
+        tn=en.get()
+        tnl=len(tn)
+        if(tnl==0 or tnl==""):
+            pass
 
-        try:
-            global conn
-            global c
-            conn = sqlite3.connect('Cricket.db')
-            c = conn.cursor()
-
-            c.execute("CREATE TABLE " + tn + "(player TEXT, Tin INTEGER, ctg TEXT)")
-            conn.commit()
-            c.execute("DROP TABLE "+tn+"")
-            conn.commit()
+        else:
             root1.destroy()
 
-            e1.configure(text=0)
-            e2.configure(text=0)
-            e3.configure(text=0)
-            e4.configure(text=0)
-            e5.configure(text=1000)
-            e6.configure(text=0)
-            e7.configure(text="\"" + tn + "\"")
+            try:
+                global conn
+                global c
+                conn = sqlite3.connect('Cricket.db')
+                c = conn.cursor()
 
-            rad1.configure(state='active')
-            rad2.configure(state='active')
-            rad3.configure(state='active')
-            rad4.configure(state='active')
+                c.execute("CREATE TABLE "+tn+"(player TEXT, Tin INTEGER, ctg TEXT)")
+                conn.commit()
 
+                c.execute("INSERT INTO TeamData(NewTeam, Point) VALUES (?, ?)",(tn,int(0)))
+                conn.commit()
 
-        except Exception as e:
-            rad1.configure(state='disabled')
-            rad2.configure(state='disabled')
-            rad3.configure(state='disabled')
-            rad4.configure(state='disabled')
-            e1.configure(text="##")
-            e2.configure(text="##")
-            e3.configure(text="##")
-            e4.configure(text="##")
-            e5.configure(text="####")
-            e6.configure(text="####")
-            e7.configure(text="Displayed Here")
+                c.execute("SELECT player, ctg FROM data")
+                data = c.fetchall()
+                for i in data:
+                    c.execute("INSERT INTO " + tn + "(player, Tin, ctg) VALUES (?, ?, ?)",
+                              (i[0], int(0), i[1]))
+                    conn.commit()
 
-            lt1.delete(0, END)
-            lt2.delete(0, END)
+                e1.configure(text=0)
+                e2.configure(text=0)
+                e3.configure(text=0)
+                e4.configure(text=0)
+                e5.configure(text=1000)
+                e6.configure(text=0)
+                e7.configure(text="\""+tn+"\"")
 
-            root1.destroy()
+                rad1.configure(state='active')
+                rad2.configure(state='active')
+                rad3.configure(state='active')
+                rad4.configure(state='active')
 
-            messagebox.showwarning("Value Error", "Enter Valid Team Name !")
+            except Exception as e:
+                rad1.configure(state='disabled')
+                rad2.configure(state='disabled')
+                rad3.configure(state='disabled')
+                rad4.configure(state='disabled')
+                e1.configure(text="##")
+                e2.configure(text="##")
+                e3.configure(text="##")
+                e4.configure(text="##")
+                e5.configure(text="####")
+                e6.configure(text="####")
+                e7.configure(text="Displayed Here")
 
+                lt1.delete(0, END)
+                lt2.delete(0, END)
+
+                messagebox.showwarning("Value Error", str(e))
 
     root1 = Tk()
     root1.title("Team Name")
@@ -251,7 +249,7 @@ b2.configure(state='disabled')
 
 Label(root,text=">",bg="white", font=('Comic Sans MS',20)).place(x=335,y=245)
 Label(root,text="Team Name: ", bg="white", font=('Comic Sans MS',10)).place(x=405,y=155)
-e7=Label(root,text="Displayed Here", font=('arial',10,"bold"),bg="white", fg='#399B9B', anchor="w")
+e7=Label(root,text="Displayed Here", font=('arial',10,"bold"),bg="white", fg='#399B9B')
 e7.place(x=485, y=156,width=100)
 
 selected = IntVar()
@@ -276,8 +274,6 @@ lt1.place(x=83, y=199)
 lt2 = Listbox(root, font=('Comic Sans MS',12), highlightcolor="white", bd=0, width=22, height=8,
               fg="#497CFF", selectbackground="#CCFFFF",selectforeground="#497CFF")
 lt2.place(x=385, y=199)
-
-GV()
 
 #0
 center(root)
