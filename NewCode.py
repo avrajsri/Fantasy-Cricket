@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 root = Tk()
 root.title("Fantasy Cricket")
-root.geometry("680x420")
+root.geometry("680x490")
 root.resizable(width=FALSE, height=FALSE)
 root.configure(background='#FFFFFF')
 
@@ -22,27 +22,95 @@ def go(event):
     j=lt1.curselection()
     jj=j[0]
 
-    lt1.delete(j)
+    c.execute("SELECT * FROM DATA")
+    data = c.fetchall()
+    TotalP=[]
+    for i in data:
+        TotalP.append(i)
+
+    global ee1
+    global ee2
+    global ee3
+    global ee4
+    global ee5
+    global ee6
+    global ee7
+    global pp1
 
     if(sn==1):
         u = batP[jj]
-        print(u)
-        batP.remove(u)
+        ee1=ee1+1
+        for i in TotalP:
+            if i[0] == u:
+                ee6=i[2]
+
+        if(int(ee1)<int(5)):
+            e1.configure(text=ee1)
+            lt2.insert(END,u)
+            batP.remove(u)
+            lt1.delete(j)
+            pp1=pp1+ee6
+            e6.configure(text=pp1)
+
+        else:
+            messagebox.showwarning("Team Formation", "Cannot Select More Than 4 Batsmen !")
 
     elif(sn==2):
         u = bowP[jj]
-        print(u)
-        bowP.remove(u)
+        ee2=ee2+1
+        for i in TotalP:
+            if i[0] == u:
+                ee6=i[2]
+
+        if (int(ee2) < int(4)):
+            e2.configure(text=ee2)
+            lt2.insert(END,u)
+            bowP.remove(u)
+            lt1.delete(j)
+            pp1=pp1+ee6
+            e6.configure(text=pp1)
+
+        else:
+            messagebox.showwarning("Team Formation", "Cannot Select More Than 3 Bowlers !")
 
     elif(sn==3):
         u = arP[jj]
-        print(u)
-        arP.remove(u)
+        ee3=ee3+1
+        for i in TotalP:
+            if i[0] == u:
+                ee6=i[2]
+
+        if (int(ee3) < int(4)):
+            e3.configure(text=ee3)
+            arP.remove(u)
+            lt2.insert(END,u)
+            lt1.delete(j)
+            pp1=pp1+ee6
+            e6.configure(text=pp1)
+
+        else:
+            messagebox.showwarning("Team Formation", "Cannot Select More Than 3 Allrounders !")
 
     else:
         u = wkP[jj]
-        print(u)
-        wkP.remove(u)
+        ee4=ee4+1
+        for i in TotalP:
+            if i[0] == u:
+                ee6=i[2]
+
+        if (int(ee4) < int(2)):
+            e4.configure(text=ee4)
+            wkP.remove(u)
+            lt2.insert(END,u)
+            lt1.delete(j)
+            pp1=pp1+ee6
+            e6.configure(text=pp1)
+
+        else:
+            messagebox.showwarning("Team Formation", "Cannot Select More Than 1 Allrounders !")
+
+    e5.configure(text=1000-int(pp1))
+
 
 #4
 def selection():
@@ -66,7 +134,6 @@ def selection():
         for i in wkP:
             lt1.insert(END, i)
 
-
 #3
 def GV():
     global conn
@@ -79,11 +146,27 @@ def GV():
     global bowP
     global arP
     global wkP
+    global ee1
+    global ee2
+    global ee3
+    global ee4
+    global ee5
+    global ee6
+    global ee7
+    global pp1
     TotalP=[]
     batP=[]
     bowP=[]
     arP=[]
     wkP=[]
+    ee1=0
+    ee2=0
+    ee3=0
+    ee4=0
+    ee5=0
+    ee6=1000
+    ee7=0
+    pp1=0
 
     c.execute("SELECT * FROM DATA")
     data = c.fetchall()
@@ -242,10 +325,10 @@ e5.place(x=212, y=120)
 e6=Label(root,text="####",bg="white",font=('arial',10,"italic","bold"),fg='#399B9B')
 e6.place(x=500, y=120)
 
-b1 = Text(root, height=15, width=28, bg="white", relief="solid")
+b1 = Text(root, height=20, width=28, bg="white", relief="solid")
 b1.place(x=80, y=150)
 b1.configure(state='disabled')
-b2 = Text(root, height=15, width=28, bg="white", relief="solid")
+b2 = Text(root, height=20, width=28, bg="white", relief="solid")
 b2.place(x=380, y=150)
 b2.configure(state='disabled')
 
@@ -268,12 +351,13 @@ rad2.configure(state='disabled')
 rad3.configure(state='disabled')
 rad4.configure(state='disabled')
 
-lt1 = Listbox(root, font=('Comic Sans MS', 12), highlightcolor="white", bd=0, width=22, height=6,
+lt1 = Listbox(root, font=('Comic Sans MS', 12), highlightcolor="white", bd=0, width=22, height=11,
                      fg="#497CFF", selectbackground="#CCFFFF", selectforeground="#497CFF")
 lt1.bind("<Double-1>", go)
 lt1.place(x=83, y=199)
 
-lt2 = Listbox(root, font=('Comic Sans MS',12), highlightcolor="white", bd=0, width=22, height=8,
+
+lt2 = Listbox(root, font=('Comic Sans MS',12), highlightcolor="white", bd=0, width=22, height=11,
               fg="#497CFF", selectbackground="#CCFFFF",selectforeground="#497CFF")
 lt2.place(x=385, y=199)
 
