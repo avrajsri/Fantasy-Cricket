@@ -70,7 +70,7 @@ def selection():
     lt1.delete(0,END)
 
     if(sn==1):
-        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BAT", int(0)])
+        c.execute("SELECT Player FROM DATA WHERE Category = ?", ["BAT"])
         data = c.fetchall()
 
         for i in data:
@@ -78,7 +78,7 @@ def selection():
             lt1.insert(END, i)
 
     elif(sn==2):
-        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["BOW", int(0)])
+        c.execute("SELECT Player FROM DATA WHERE Category = ?", ["BOW"])
         data = c.fetchall()
 
         for i in data:
@@ -86,7 +86,7 @@ def selection():
             lt1.insert(END, i)
 
     elif(sn==3):
-        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["AR", int(0)])
+        c.execute("SELECT Player FROM DATA WHERE Category = ?", ["AR"])
         data = c.fetchall()
 
         for i in data:
@@ -94,7 +94,7 @@ def selection():
             lt1.insert(END, i)
 
     else:
-        c.execute("SELECT player FROM " + tn + " WHERE ctg = ? AND Tin = ?", ["WK", int(0)])
+        c.execute("SELECT Player FROM DATA WHERE Category = ?", ["WK"])
         data = c.fetchall()
 
         for i in data:
@@ -105,65 +105,57 @@ def selection():
 def NEW():
     lt1.delete(0, END)
     lt2.delete(0, END)
+
     def tname():
         global tn
         tn=en.get()
-        tnl=len(tn)
-        if(tnl==0 or tnl==""):
-            pass
 
-        else:
+        try:
+            global conn
+            global c
+            conn = sqlite3.connect('Cricket.db')
+            c = conn.cursor()
+
+            c.execute("CREATE TABLE " + tn + "(player TEXT, Tin INTEGER, ctg TEXT)")
+            conn.commit()
+            c.execute("DROP TABLE "+tn+"")
+            conn.commit()
             root1.destroy()
 
-            try:
-                global conn
-                global c
-                conn = sqlite3.connect('Cricket.db')
-                c = conn.cursor()
+            e1.configure(text=0)
+            e2.configure(text=0)
+            e3.configure(text=0)
+            e4.configure(text=0)
+            e5.configure(text=1000)
+            e6.configure(text=0)
+            e7.configure(text="\"" + tn + "\"")
 
-                c.execute("CREATE TABLE "+tn+"(player TEXT, Tin INTEGER, ctg TEXT)")
-                conn.commit()
+            rad1.configure(state='active')
+            rad2.configure(state='active')
+            rad3.configure(state='active')
+            rad4.configure(state='active')
 
-                c.execute("INSERT INTO TeamData(NewTeam, Point) VALUES (?, ?)",(tn,int(0)))
-                conn.commit()
 
-                c.execute("SELECT player, ctg FROM data")
-                data = c.fetchall()
-                for i in data:
-                    c.execute("INSERT INTO " + tn + "(player, Tin, ctg) VALUES (?, ?, ?)",
-                              (i[0], int(0), i[1]))
-                    conn.commit()
+        except Exception as e:
+            rad1.configure(state='disabled')
+            rad2.configure(state='disabled')
+            rad3.configure(state='disabled')
+            rad4.configure(state='disabled')
+            e1.configure(text="##")
+            e2.configure(text="##")
+            e3.configure(text="##")
+            e4.configure(text="##")
+            e5.configure(text="####")
+            e6.configure(text="####")
+            e7.configure(text="Displayed Here")
 
-                e1.configure(text=0)
-                e2.configure(text=0)
-                e3.configure(text=0)
-                e4.configure(text=0)
-                e5.configure(text=1000)
-                e6.configure(text=0)
-                e7.configure(text="\""+tn+"\"")
+            lt1.delete(0, END)
+            lt2.delete(0, END)
 
-                rad1.configure(state='active')
-                rad2.configure(state='active')
-                rad3.configure(state='active')
-                rad4.configure(state='active')
+            root1.destroy()
 
-            except Exception as e:
-                rad1.configure(state='disabled')
-                rad2.configure(state='disabled')
-                rad3.configure(state='disabled')
-                rad4.configure(state='disabled')
-                e1.configure(text="##")
-                e2.configure(text="##")
-                e3.configure(text="##")
-                e4.configure(text="##")
-                e5.configure(text="####")
-                e6.configure(text="####")
-                e7.configure(text="Displayed Here")
+            messagebox.showwarning("Value Error", "Enter Valid Team Name !")
 
-                lt1.delete(0, END)
-                lt2.delete(0, END)
-
-                messagebox.showwarning("Value Error", str(e))
 
     root1 = Tk()
     root1.title("Team Name")
