@@ -1,0 +1,8 @@
+1. Python Interpreter
+--> https://www.python.org/downloads/
+
+2. DB Browser For Sqlite
+--> https://sqlitebrowser.org/
+
+3. "Community" Lightweight IDE For Python(Free, open-source)
+--> https://www.jetbrains.com/pycharm/download/#section=windows
